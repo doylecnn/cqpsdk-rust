@@ -2,10 +2,10 @@
 pub const CQAPI_VERSION: i32 = 9;
 
 pub const EVENT_IGNORE: i32 = 0;
-pub const EVENT_BLOCK: i32 = 0;
+pub const EVENT_BLOCK: i32 = 1;
 
 pub const REQUEST_ALLOW: i32 = 1;
-pub const REQUEST_DENY: i32 = 1;
+pub const REQUEST_DENY: i32 = 0;
 
 pub const REQUEST_GROUPADD: i32 = 1;
 pub const REQUEST_GROUPINVITEI: i32 = 2;
