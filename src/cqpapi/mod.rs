@@ -2,9 +2,6 @@
 #[allow(non_snake_case)]
 #[allow(dead_code)]
 extern {
-    pub fn CQ_sendFriendMsg(AuthCode: i32, QQID: i64, msg: *const u8) -> i32;//deprecated
-    pub fn CQ_sendStrangerGroupMsg(AuthCode: i32, groupNumber: i64, QQID: i64, msg: *const u8) -> i32;//deprecated
-    pub fn CQ_sendStrangerOnlineMsg(AuthCode: i32, QQID: i64, msg: *const u8) -> i32;//deprecated
     pub fn CQ_sendPrivateMsg(AuthCode: i32, QQID: i64, msg: *const u8) -> i32;
     pub fn CQ_sendGroupMsg(AuthCode: i32, groupNumber: i64, msg: *const u8) -> i32;
     pub fn CQ_sendDiscussionMsg(AuthCode: i32, discussionNumber: i64, msg: *const u8) -> i32;
@@ -19,8 +16,8 @@ extern {
     pub fn CQ_setGroupLeave(AuthCode: i32, groupNumber: i64, QQID: i64, disposeGroup: i32) -> i32;
     pub fn CQ_setGroupSpecialTitle(AuthCode: i32, groupNumber: i64, QQID: i64, title: *const u8, expireTime: i64) -> i32;
     pub fn CQ_setDiscussLeave(AuthCode: i32, discussionNumber: i64) -> i32;
-    //pub fn CQ_setFriendAddRequest(int32_t AuthCode, const char *请求反馈标识, int32_t 反馈类型, const char *备注) -> i32;
-    //pub fn CQ_setGroupAddRequestV2(int32_t AuthCode, const char *请求反馈标识, int32_t 请求类型, int32_t 反馈类型, const char *理由) -> i32;
+    pub fn CQ_setFriendAddRequest(AuthCode: i32, responseFlag: *const u8, responseType: i32, comment: *const u8) -> i32;
+    pub fn CQ_setGroupAddRequestV2(AuthCode: i32, responseFlag: *const u8, requestType: i32, responseType: i32, reason: *const u8) -> i32;
     pub fn CQ_getGroupMemberInfoV2(AuthCode: i32, groupNumber: i64, QQID: i64, useCache: i32) -> *const u8;
     pub fn CQ_getStrangerInfo(AuthCode: i32, QQID: i64, useCache: i32) -> *const u8;
     pub fn CQ_addLog(AuthCode: i32, priority: i32, t: *const u8, msg: *const u8) -> i32;
