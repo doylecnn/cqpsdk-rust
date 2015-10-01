@@ -22,7 +22,7 @@ pub const CQLOG_FATAL: i32 = 40;
 #[link(name = "CQP")]
 #[allow(non_snake_case)]
 #[allow(dead_code)]
-extern {
+extern "stdcall" {
 
     pub fn CQ_sendPrivateMsg(AuthCode: i32, qqNumber: i64, msg: *const i8) -> i32;
     pub fn CQ_sendGroupMsg(AuthCode: i32, groupNumber: i64, msg: *const i8) -> i32;
