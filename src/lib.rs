@@ -78,7 +78,7 @@ impl CqpApi{
 	pub fn send_discussion_msg(&self, discussion_number: i64, msg: &str) -> i32{
 		let msg = CqpApi::create_cstring(msg);
 	    unsafe{
-	        cqpapi::CQ_sendDiscussionMsg(self.auth_code, discussion_number, msg.as_ptr())
+	        cqpapi::CQ_sendDiscussMsg(self.auth_code, discussion_number, msg.as_ptr())
 	    }
 	}
 

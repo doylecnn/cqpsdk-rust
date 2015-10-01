@@ -6,7 +6,7 @@ use self::libc::{c_char};
 extern {
     pub fn CQ_sendPrivateMsg(AuthCode: i32, qqNumber: i64, msg: *const c_char) -> i32;
     pub fn CQ_sendGroupMsg(AuthCode: i32, groupNumber: i64, msg: *const c_char) -> i32;
-    pub fn CQ_sendDiscussionMsg(AuthCode: i32, discussionNumber: i64, msg: *const c_char) -> i32;
+    pub fn CQ_sendDiscussMsg(AuthCode: i32, discussionNumber: i64, msg: *const c_char) -> i32;
     pub fn CQ_sendLike(AuthCode: i32, qqNumber: i64) -> i32;
     pub fn CQ_setGroupKick(AuthCode: i32, groupNumber: i64, qqNumber: i64, refuseRejoin: i32) -> i32;
     pub fn CQ_setGroupBan(AuthCode: i32, groupNumber: i64, qqNumber: i64, banTime: i64) -> i32;
