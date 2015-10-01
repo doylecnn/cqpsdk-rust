@@ -3,7 +3,7 @@ use self::libc::{c_char};
 #[link(name = "CQP")]
 #[allow(non_snake_case)]
 #[allow(dead_code)]
-extern {
+extern "stdcall" {
     pub fn CQ_sendPrivateMsg(AuthCode: i32, qqNumber: i64, msg: *const c_char) -> i32;
     pub fn CQ_sendGroupMsg(AuthCode: i32, groupNumber: i64, msg: *const c_char) -> i32;
     pub fn CQ_sendDiscussMsg(AuthCode: i32, discussionNumber: i64, msg: *const c_char) -> i32;
