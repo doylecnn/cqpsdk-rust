@@ -4,6 +4,10 @@ mod cqpapi;
 
 use std::ffi::{CString, CStr};
 
+extern crate encoding;
+use encoding::{Encoding, EncoderTrap};
+use encoding::all::GB18030;
+
 pub enum LogLevel{
 	Debug       = 0,
 	Info        = 10,
@@ -36,7 +40,7 @@ pub struct CqpApi{
 
 impl CqpApi{
 	fn create_cstring(text: &str) -> CString {
-		CString::new(text).unwrap()
+		CString::new(GB18030.encode(text,EncoderTrap::Ignore).unwrap()).unwrap()
 	}
 
 	pub const fn static_new()->CqpApi{
