@@ -5,8 +5,17 @@ mod cqpapi;
 use std::ffi::{CString, CStr};
 
 extern crate encoding;
-use encoding::{Encoding, EncoderTrap};
+use encoding::{Encoding, EncoderTrap, DecoderTrap};
 use encoding::all::GB18030;
+
+macro_rules! TOGB18030 {
+	($x: expr) => (CString::new(GB18030.encode($x,EncoderTrap::Ignore).unwrap()).unwrap().as_ptr());
+}
+
+#[macro_export]
+macro_rules! FROMGB18030 {
+	($x: expr) => (GB18030.decode(CStr::from_ptr($x).to_bytes(), DecoderTrap::Ignore).unwrap());
+}
 
 pub enum LogLevel{
 	Debug       = 0,
@@ -39,10 +48,6 @@ pub struct CqpApi{
 }
 
 impl CqpApi{
-	fn create_cstring(text: &str) -> CString {
-		CString::new(GB18030.encode(text,EncoderTrap::Ignore).unwrap()).unwrap()
-	}
-
 	pub const fn static_new()->CqpApi{
 		CqpApi{auth_code:0}
 	}
@@ -58,31 +63,31 @@ impl CqpApi{
 	}
 
 	pub fn send_private_message(&self, qq_number: i64, msg: &str)->i32{
-		let msg = CqpApi::create_cstring(msg);
+		let msg = TOGB18030!(msg);
 		unsafe{
-			cqpapi::CQ_sendPrivateMsg(self.auth_code, qq_number, msg.as_ptr())
+			cqpapi::CQ_sendPrivateMsg(self.auth_code, qq_number, msg)
 		}
 	}
 
 	pub fn add_log(&self, priority: LogLevel, t: &str, msg: &str)->i32{
-		let t = CqpApi::create_cstring(t);
-		let msg = CqpApi::create_cstring(msg);
+		let t = TOGB18030!(t);
+		let msg = TOGB18030!(msg);
 		unsafe{
-			cqpapi::CQ_addLog(self.auth_code, priority.to_int(), t.as_ptr(), msg.as_ptr())
+			cqpapi::CQ_addLog(self.auth_code, priority.to_int(), t, msg)
 		}
 	}
 
 	pub fn send_group_msg(&self, group_number: i64, msg: &str) -> i32{
-		let msg = CqpApi::create_cstring(msg);
+		let msg = TOGB18030!(msg);
 	    unsafe{
-	        cqpapi::CQ_sendGroupMsg(self.auth_code, group_number, msg.as_ptr())
+	        cqpapi::CQ_sendGroupMsg(self.auth_code, group_number, msg)
 	    }
 	}
 
 	pub fn send_discussion_msg(&self, discussion_number: i64, msg: &str) -> i32{
-		let msg = CqpApi::create_cstring(msg);
+		let msg = TOGB18030!(msg);
 	    unsafe{
-	        cqpapi::CQ_sendDiscussMsg(self.auth_code, discussion_number, msg.as_ptr())
+	        cqpapi::CQ_sendDiscussMsg(self.auth_code, discussion_number, msg)
 	    }
 	}
 
@@ -117,9 +122,9 @@ impl CqpApi{
 	}
 
 	pub fn set_group_anonymous_ban(&self, group_number: i64, anonymous_name: &str, ban_time: i64) -> i32{
-		let anonymous_name = CqpApi::create_cstring(anonymous_name);
+		let anonymous_name = TOGB18030!(anonymous_name);
 	    unsafe{
-	        cqpapi::CQ_setGroupAnonymousBan(self.auth_code, group_number, anonymous_name.as_ptr(), ban_time)
+	        cqpapi::CQ_setGroupAnonymousBan(self.auth_code, group_number, anonymous_name, ban_time)
 	    }
 	}
 
@@ -130,9 +135,9 @@ impl CqpApi{
 	}
 
 	pub fn set_group_card(&self, group_number: i64, qq_number: i64, nickname: &str) -> i32{
-		let nickname = CqpApi::create_cstring(nickname);
+		let nickname = TOGB18030!(nickname);
 	    unsafe{
-	        cqpapi::CQ_setGroupCard(self.auth_code, group_number, qq_number, nickname.as_ptr())
+	        cqpapi::CQ_setGroupCard(self.auth_code, group_number, qq_number, nickname)
 	    }
 	}
 
@@ -143,9 +148,9 @@ impl CqpApi{
 	}
 
 	pub fn set_group_special_title(&self, group_number: i64, qq_number: i64, title: &str, expire_time: i64) -> i32{
-		let title = CqpApi::create_cstring(title);
+		let title = TOGB18030!(title);
 	    unsafe{
-	        cqpapi::CQ_setGroupSpecialTitle(self.auth_code, group_number, qq_number, title.as_ptr(), expire_time)
+	        cqpapi::CQ_setGroupSpecialTitle(self.auth_code, group_number, qq_number, title, expire_time)
 	    }
 	}
 
@@ -156,18 +161,18 @@ impl CqpApi{
 	}
 
 	pub fn set_friend_add_request(&self, response_flag: &str, response_type: i32, comment: &str) -> i32{
-		let response_flag = CqpApi::create_cstring(response_flag);
-		let comment = CqpApi::create_cstring(comment);
+		let response_flag = TOGB18030!(response_flag);
+		let comment = TOGB18030!(comment);
 	    unsafe{
-	        cqpapi::CQ_setFriendAddRequest(self.auth_code, response_flag.as_ptr(), response_type, comment.as_ptr())
+	        cqpapi::CQ_setFriendAddRequest(self.auth_code, response_flag, response_type, comment)
 	    }
 	}
 
 	pub fn set_group_add_request_v2(&self, response_flag: &str, request_type: i32, response_type: i32, reason: &str) -> i32{
-		let response_flag = CqpApi::create_cstring(response_flag);
-		let reason = CqpApi::create_cstring(reason);
+		let response_flag = TOGB18030!(response_flag);
+		let reason = TOGB18030!(reason);
 	    unsafe{
-	        cqpapi::CQ_setGroupAddRequestV2(self.auth_code, response_flag.as_ptr(), request_type, response_type, reason.as_ptr())
+	        cqpapi::CQ_setGroupAddRequestV2(self.auth_code, response_flag, request_type, response_type, reason)
 	    }
 	}
 
@@ -208,16 +213,16 @@ impl CqpApi{
 	}
 
 	pub fn set_function_mark(&self, function_name: &str) -> i32{
-		let function_name = CqpApi::create_cstring(function_name);
+		let function_name = TOGB18030!(function_name);
 	    unsafe{
-	        cqpapi::CQ_setFunctionMark(self.auth_code, function_name.as_ptr())
+	        cqpapi::CQ_setFunctionMark(self.auth_code, function_name)
 	    }
 	}
 
 	pub fn set_fatal(&self, err_msg: &str) -> i32{
-		let err_msg = CqpApi::create_cstring(err_msg);
+		let err_msg = TOGB18030!(err_msg);
 	    unsafe{
-	        cqpapi::CQ_setFatal(self.auth_code, err_msg.as_ptr())
+	        cqpapi::CQ_setFatal(self.auth_code, err_msg)
 	    }
 	}
 }
