@@ -1,7 +1,5 @@
 # Unofficial CQP SDK for Rust
 
-## Description
-
 This project is a SDK for [CQP](https://cqp.cc/) written in [Rust](http://rust-lang.org/).
 
 The officially recognized Rust SDK is done by `doylecnn` and is linked in the Relative Projects section below.
@@ -10,7 +8,7 @@ The officially recognized Rust SDK is done by `doylecnn` and is linked in the Re
 
 Add following lines to your `Cargo.toml`:
 
-```rust
+```
 
 [dependencies.cqpsdk]
 git = "https://github.com/evshiron/cqpsdk-rust"
@@ -18,6 +16,21 @@ git = "https://github.com/evshiron/cqpsdk-rust"
 ```
 
 For more detailed information you can refer to [evshiron/PupuriumR](https://github.com/evshiron/PupuriumR/) as a demo.
+
+## Documentation
+
+You can generate some documentation locally with the following commands:
+
+```bash
+
+rustdoc ./src/mod.rs
+
+# Open the generated pages in Mac OS X.
+open ./doc/mod/index.html
+
+```
+
+Besides, the [evshiron/PupuriumR Wiki](https://github.com/evshiron/PupuriumR/wiki) might worth reading.
 
 ## Relative Projects
 
