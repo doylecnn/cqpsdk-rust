@@ -1,5 +1,9 @@
 pub mod cqpapi;
 
+/// Converts `UTF-8` str to `GBK` *const i8.
+///
+/// Check `CQ_sendPrivateMsg` for examples.
+///
 #[macro_export]
 macro_rules! gbk {
 
@@ -7,6 +11,10 @@ macro_rules! gbk {
 	
 }
 
+/// Converts `GBK` *const i8 to `UTF-8` str.
+///
+/// An opposite macro against `gbk!`.
+///
 #[macro_export]
 macro_rules! utf8 {
 	
