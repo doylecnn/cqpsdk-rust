@@ -1,5 +1,7 @@
 pub mod cqpapi;
 
+use std::ffi::{ CString, CStr };
+
 /// Converts `UTF-8` str to `GBK` *const i8.
 ///
 /// Check `CQ_sendPrivateMsg` for examples.
@@ -7,7 +9,7 @@ pub mod cqpapi;
 #[macro_export]
 macro_rules! gbk {
 
-	( $x: expr ) => (CString::new(GBK.encode($x, EncoderTrap::Ignore).unwrap()).unwrap().as_ptr());
+	( $x: expr ) => (CString::new(GBK.encode($x, EncoderTrap::Ignore).unwrap()).unwrap().into_raw());
 	
 }
 
