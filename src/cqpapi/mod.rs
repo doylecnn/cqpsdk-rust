@@ -49,10 +49,10 @@ extern "stdcall" {
     /// # Examples
     ///
     /// ```
-    /// cqpapi::CQ_sendDiscussionMsg(AuthCode, 10000, gbk!("Hello world!"));
+    /// cqpapi::CQ_sendDiscussMsg(AuthCode, 10000, gbk!("Hello world!"));
     /// ```
     ///
-    pub fn CQ_sendDiscussionMsg(AuthCode: i32, discussionNum: i64, msg: *const i8) -> i32;
+    pub fn CQ_sendDiscussMsg(AuthCode: i32, discussionNum: i64, msg: *const i8) -> i32;
 
     /// Haven't been documented.
     pub fn CQ_sendLike(AuthCode: i32, qqNum: i64) -> i32;
