@@ -37,15 +37,6 @@ pub const REQUEST_DENY: i32 = 0;
 pub const REQUEST_GROUPADD: i32 = 1;
 pub const REQUEST_GROUPINVITEI: i32 = 2;
 
-pub const CQLOG_DEBUG: i32 = 0;
-pub const CQLOG_INFO: i32 = 10;
-pub const CQLOG_INFOSUCCESS: i32 = 11;
-pub const CQLOG_INFORECV: i32 = 12;
-pub const CQLOG_INFOSEND: i32 = 13;
-pub const CQLOG_WARNING: i32 = 20;
-pub const CQLOG_ERROR: i32 = 30;
-pub const CQLOG_FATAL: i32 = 40;
-
 pub enum LogLevel{
     Debug       = 0,
     Info        = 10,
