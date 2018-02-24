@@ -233,7 +233,7 @@ impl Client{
         }
     }
 
-    pub fn set_group_add_request_v2(&self, response_flag: &str, request_type: i32, response_type: i32, reason: &str) -> i32{
+    pub fn set_group_add_request(&self, response_flag: &str, request_type: i32, response_type: i32, reason: &str) -> i32{
         let response_flag = UTF8_STR_TO_GB18030_C_CHAR_PTR!(response_flag);
         let reason = UTF8_STR_TO_GB18030_C_CHAR_PTR!(reason);
         unsafe{
