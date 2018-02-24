@@ -1,7 +1,5 @@
 use std::os::raw::c_char;
 
-pub const API_VERSION:i32=9;
-
 #[link(name = "CQP")]
 #[allow(non_snake_case)]
 #[allow(dead_code)]

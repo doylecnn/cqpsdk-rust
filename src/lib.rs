@@ -26,6 +26,26 @@ macro_rules! GB18030_C_CHAR_PRT_TO_UTF8_STR {
 
 pub mod cqpapi;
 
+pub const API_VERSION:i32=9;
+
+pub const EVENT_IGNORE: i32 = 0;
+pub const EVENT_BLOCK: i32 = 1;
+
+pub const REQUEST_ALLOW: i32 = 1;
+pub const REQUEST_DENY: i32 = 0;
+
+pub const REQUEST_GROUPADD: i32 = 1;
+pub const REQUEST_GROUPINVITEI: i32 = 2;
+
+pub const CQLOG_DEBUG: i32 = 0;
+pub const CQLOG_INFO: i32 = 10;
+pub const CQLOG_INFOSUCCESS: i32 = 11;
+pub const CQLOG_INFORECV: i32 = 12;
+pub const CQLOG_INFOSEND: i32 = 13;
+pub const CQLOG_WARNING: i32 = 20;
+pub const CQLOG_ERROR: i32 = 30;
+pub const CQLOG_FATAL: i32 = 40;
+
 pub enum LogLevel{
     Debug       = 0,
     Info        = 10,
@@ -69,7 +89,7 @@ impl Client{
     /// ```
     ///
     pub fn new<S: Into<String>>(app_name:S) -> Client{
-        Client{auth_code:0, initialized:false, app_name:app_name.into(), api_version:cqpapi::API_VERSION}
+        Client{auth_code:0, initialized:false, app_name:app_name.into(), api_version:API_VERSION}
     }
 
     /// Initialize
