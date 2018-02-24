@@ -1,4 +1,5 @@
 #![feature(use_extern_macros)]
+#![feature(const_fn)]
 
 use std::ffi::{CString, CStr};
 
@@ -63,14 +64,14 @@ impl LogLevel{
     }
 }
 
-pub struct Client{
+pub struct Client<'a>{
     auth_code :i32,
     initialized :bool,
-    app_name :String,
+    app_name :&'a str,
     api_version :i32
 }
 
-impl Client{
+impl<'a> Client<'a>{
     /// Create new Client
     ///
     /// # Examples
@@ -79,8 +80,8 @@ impl Client{
     /// let mut c = cqpsdk::Client::new("app_name");
     /// ```
     ///
-    pub fn new<S: Into<String>>(app_name:S) -> Client{
-        Client{auth_code:0, initialized:false, app_name:app_name.into(), api_version:API_VERSION}
+    pub const fn new(app_name:&str) -> Client{
+        Client{auth_code:0, initialized:false, app_name:app_name, api_version:API_VERSION}
     }
 
     /// Initialize
