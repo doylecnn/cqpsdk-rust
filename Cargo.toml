@@ -4,4 +4,4 @@ version = "0.0.1"
 authors = [ "evshiron", "doylecnn" ]
 
 [dependencies]
-encoding = "=0.2.32"
+encoding = "0.2"
