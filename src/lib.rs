@@ -4,7 +4,7 @@
 use std::ffi::{CString, CStr};
 
 extern crate encoding;
-use encoding::{Encoding, EncoderTrap, DecoderTrap};
+use encoding::{Encoding, EncoderTrap};
 use encoding::all::GB18030;
 
 /// Converts `UTF-8` str to `GB18030` *const i8.
@@ -157,9 +157,9 @@ impl<'a> Client<'a>{
         }
     }
 
-    pub fn send_like(&self, qq_number: i64) -> i32{
+    pub fn send_like(&self, qq_number: i64, times: i32) -> i32{
         unsafe{
-            cqpapi::CQ_sendLike(self.auth_code, qq_number)
+            cqpapi::CQ_sendLikeV2(self.auth_code, qq_number, times)
         }
     }
 
@@ -242,7 +242,7 @@ impl<'a> Client<'a>{
         }
     }
 
-    pub fn get_group_member_info_v2(&self, group_number: i64, qq_number: i64, use_cache: i32) -> &str{
+    pub fn get_group_member_info(&self, group_number: i64, qq_number: i64, use_cache: i32) -> &str{
         unsafe{
             CStr::from_ptr(cqpapi::CQ_getGroupMemberInfoV2(self.auth_code, group_number, qq_number, use_cache)).to_str().unwrap()
         }
@@ -289,6 +289,32 @@ impl<'a> Client<'a>{
         let err_msg = UTF8_STR_TO_GB18030_C_CHAR_PTR!(err_msg);
         unsafe{
             cqpapi::CQ_setFatal(self.auth_code, err_msg)
+        }
+    }
+
+    pub fn delete_message(&self, message_id: i64) -> i32{
+        unsafe{
+            cqpapi::CQ_deleteMsg(self.auth_code, message_id)
+        }
+    }
+
+    pub fn get_record(&self, file: &str, outformat: &str) -> &str{
+        let file = UTF8_STR_TO_GB18030_C_CHAR_PTR!(file);
+        let outformat = UTF8_STR_TO_GB18030_C_CHAR_PTR!(outformat);
+        unsafe{
+            CStr::from_ptr(cqpapi::CQ_getRecord(self.auth_code, file, outformat)).to_str().unwrap()
+        }
+    }
+
+    pub fn get_group_list(&self) -> &str{
+        unsafe{
+            CStr::from_ptr(cqpapi::CQ_getGroupList(self.auth_code)).to_str().unwrap()
+        }
+    }
+
+    pub fn get_group_member_list(&self, group_number: i64) -> &str{
+        unsafe{
+            CStr::from_ptr(cqpapi::CQ_getGroupMemberList(self.auth_code, group_number)).to_str().unwrap()
         }
     }
 }
