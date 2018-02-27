@@ -7,6 +7,7 @@ extern "stdcall" {
 
     /// Sends private message.
     /// Auth=161
+    /// return message_id
     ///
     /// # Examples
     ///
@@ -18,6 +19,7 @@ extern "stdcall" {
 
     /// Sends group message.
     /// Auth=101
+    /// return message_id
     ///
     /// # Examples
     ///
@@ -29,6 +31,7 @@ extern "stdcall" {
 
     /// Sends discussion message.
     /// Auth=103
+    /// return message_id
     ///
     /// # Examples
     ///
