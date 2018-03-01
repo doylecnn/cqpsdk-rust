@@ -2,6 +2,7 @@ use base64;
 
 use super::utils;
 
+#[derive(Serialize, Deserialize)]
 pub struct Member{
     group_id :i64,
     qq_id :i64,

@@ -2,14 +2,16 @@
 #![feature(const_fn)]
 
 extern crate base64;
-
-use std::ffi::{CString, CStr};
-
+extern crate serde;
+#[macro_use]
+extern crate serde_derive;
 extern crate byteorder;
 
 extern crate encoding;
 use encoding::{Encoding, EncoderTrap};
 use encoding::all::GB18030;
+
+use std::ffi::{CString, CStr};
 
 /// Converts `UTF-8` str to `GB18030` *const i8.
 ///

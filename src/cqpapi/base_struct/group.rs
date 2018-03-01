@@ -2,6 +2,7 @@ use base64;
 
 use super::utils;
 
+#[derive(Serialize, Deserialize)]
 pub struct Group{
     id :i64,
     name :String
