@@ -1,7 +1,11 @@
 #![feature(use_extern_macros)]
 #![feature(const_fn)]
 
+extern crate base64;
+
 use std::ffi::{CString, CStr};
+
+extern crate byteorder;
 
 extern crate encoding;
 use encoding::{Encoding, EncoderTrap};
@@ -26,6 +30,9 @@ macro_rules! GB18030_C_CHAR_PRT_TO_UTF8_STR {
 }
 
 pub mod cqpapi;
+pub use cqpapi::base_struct::group::Group;
+pub use cqpapi::base_struct::member::Member;
+
 
 pub const API_VERSION:i32=9;
 
@@ -242,10 +249,11 @@ impl<'a> Client<'a>{
         }
     }
 
-    pub fn get_group_member_info(&self, group_number: i64, qq_number: i64, use_cache: i32) -> &str{
-        unsafe{
+    pub fn get_group_member_info(&self, group_number: i64, qq_number: i64, use_cache: i32) -> Member{
+        let rawdata = unsafe{
             CStr::from_ptr(cqpapi::CQ_getGroupMemberInfoV2(self.auth_code, group_number, qq_number, use_cache)).to_str().unwrap()
-        }
+        };
+        cqpapi::base_struct::member::Member::parse_to_member(rawdata)
     }
 
     pub fn get_stranger_info(&self, qq_number: i64, use_cache: i32) -> &str{
@@ -306,16 +314,18 @@ impl<'a> Client<'a>{
         }
     }
 
-    pub fn get_group_list(&self) -> &str{
-        unsafe{
+    pub fn get_group_list(&self) -> Vec<Group>{
+        let rawdata = unsafe{
             CStr::from_ptr(cqpapi::CQ_getGroupList(self.auth_code)).to_str().unwrap()
-        }
+        };
+        cqpapi::base_struct::group::Group::parse_to_group_list(rawdata)
     }
 
-    pub fn get_group_member_list(&self, group_number: i64) -> &str{
-        unsafe{
+    pub fn get_group_member_list(&self, group_number: i64) -> Vec<Member>{
+        let rawdata = unsafe{
             CStr::from_ptr(cqpapi::CQ_getGroupMemberList(self.auth_code, group_number)).to_str().unwrap()
-        }
+        };
+        cqpapi::base_struct::member::Member::parse_to_member_list(rawdata)
     }
 }
 

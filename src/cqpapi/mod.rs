@@ -1,3 +1,7 @@
+pub mod base_struct;
+pub struct Group;
+pub struct Member;
+
 use std::os::raw::c_char;
 
 #[link(name = "CQP")]
