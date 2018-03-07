@@ -90,7 +90,7 @@ extern "stdcall" {
 
     /// Haven't been documented.
     /// Auth=127
-    pub fn CQ_setGroupLeave(AuthCode: i32, groupNum: i64, qqNum: i64, disposeGroup: i32) -> i32;
+    pub fn CQ_setGroupLeave(AuthCode: i32, groupNum: i64, disposeGroup: i32) -> i32;
 
     /// Haven't been documented.
     /// Auth=140

@@ -216,9 +216,9 @@ impl<'a> Client<'a>{
         }
     }
 
-    pub fn set_group_leave(&self, group_number: i64, qq_number: i64, dispose_group: i32) -> i32{
+    pub fn set_group_leave(&self, group_number: i64, dispose_group: i32) -> i32{
         unsafe{
-            cqpapi::CQ_setGroupLeave(self.auth_code, group_number, qq_number, dispose_group)
+            cqpapi::CQ_setGroupLeave(self.auth_code, group_number, dispose_group)
         }
     }
 
