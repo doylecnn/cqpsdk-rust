@@ -140,6 +140,10 @@ extern "stdcall" {
 
     /// Haven't been documented.
     /// Auth=20
+    pub fn CQ_getCookiesV2(AuthCode: i32) -> *const c_char;
+
+    /// Haven't been documented.
+    /// Auth=20
     pub fn CQ_getCsrfToken(AuthCode: i32) -> i32;
 
     /// Haven't been documented.
